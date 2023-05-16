@@ -2,7 +2,6 @@ package org.otaku.springresttemplate.infrastructure.rest;
 
 import lombok.Data;
 
-//API异常携带错误码
 @Data
 public class ApiError {
     private int errorCode;

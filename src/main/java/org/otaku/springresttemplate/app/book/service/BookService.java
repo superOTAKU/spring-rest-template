@@ -7,13 +7,16 @@ import org.otaku.springresttemplate.app.book.exception.BookNotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Service
 public class BookService {
-    private final Map<Long, Book> bookMap = new HashMap<>();
+    private final Map<Long, Book> bookMap = new ConcurrentHashMap<>();
     private final AtomicLong id = new AtomicLong(0L);
 
     //明确可能抛出的异常
@@ -31,6 +34,10 @@ public class BookService {
         book.setId(id.incrementAndGet());
         bookMap.put(book.getId(), book);
         return new AddBookResult(book.getId());
+    }
+
+    public List<Book> getAllBooks() {
+        return new ArrayList<>(bookMap.values());
     }
 
 }

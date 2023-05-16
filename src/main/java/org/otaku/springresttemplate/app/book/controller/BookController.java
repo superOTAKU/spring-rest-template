@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Validated
 @RequestMapping("/book")
 @RestController
@@ -35,6 +37,11 @@ public class BookController {
     @PostMapping
     public AddBookResult addBook(@RequestBody @Valid AddBookCommand request) {
         return service.addBook(request);
+    }
+
+    @GetMapping
+    public List<Book> getAllBooks() {
+        return service.getAllBooks();
     }
 
 }
